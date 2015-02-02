@@ -4,8 +4,6 @@ import org.jug.algeria.domain.User;
 import org.jug.algeria.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-@EnableAutoConfiguration
 @RestController
 public class HomeController {
 
@@ -48,7 +45,4 @@ public class HomeController {
         return resultList;
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(new Object[]{HomeController.class, UserRepository.class}, args);
-    }
 }
