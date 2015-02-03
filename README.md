@@ -6,7 +6,7 @@ Maven 3.1.x
 Postgresql instance
 
 ## Postgres Instance Configuration
-In order to use your instance please update application.properties
+In order to use your instance please update postgres.properties
 ```
 spring.jpa.database=POSTGRESQL
 spring.jpa.show-sql=true
