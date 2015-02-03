@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -18,15 +17,27 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>1.7</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -41,16 +52,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -60,7 +61,6 @@
             <version>6.8.8</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -68,72 +68,18 @@
         </dependency>
     </dependencies>
 
+    <!-- Main Build -->
     <build>
         <finalName>blood-${project.version}</finalName>
         <plugins>
             <plugin>
-                <groupId>com.google.code.sortpom</groupId>
-                <artifactId>maven-sortpom-plugin</artifactId>
-                <version>2.3.0</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sort</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sortProperties>true</sortProperties>
-                    <nrOfIndentSpace>4</nrOfIndentSpace>
-                    <sortDependencies>groupId,artifactId</sortDependencies>
-                    <sortPlugins>groupId,artifactId</sortPlugins>
-                    <keepBlankLines>true</keepBlankLines>
-                    <expandEmptyElements>false</expandEmptyElements>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.3.1</version>
-                <executions>
-                    <execution>
-                        <id>enforce-versions</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <rules>
-                        <requireMavenVersion>
-                            <message>You are running an older version of Maven. requires at least Maven 3.0</message>
-                            <version>[3.0.0,)</version>
-                        </requireMavenVersion>
-                        <requireJavaVersion>
-                            <message>You are running an older version of Java. requires at least JDK ${java.version}</message>
-                            <version>[${java.version}.0,)</version>
-                        </requireJavaVersion>
-                    </rules>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <port>9095</port>
-                    <ajpPort>9009</ajpPort>
-                    <path>/blood</path>
-                    <systemProperties>
-                        <log4j.rootLevel>INFO</log4j.rootLevel>
-                        <log4j.rootAppender>console</log4j.rootAppender>
-                    </systemProperties>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
 
+    <!-- Profiles -->
     <profiles>
         <profile>
             <id>default8</id>
@@ -141,25 +87,63 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
-                <resources>
-                    <resource>
-                        <targetPath>org/jug/algeria/db</targetPath>
-                        <directory>src/main/resources/db</directory>
-                        <includes>
-                            <include>postgres.properties</include>
-                        </includes>
-                    </resource>
-                </resources>
                 <plugins>
+                    <plugin>
+                        <groupId>com.google.code.sortpom</groupId>
+                        <artifactId>maven-sortpom-plugin</artifactId>
+                        <version>2.3.0</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sort</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <sortProperties>true</sortProperties>
+                            <nrOfIndentSpace>4</nrOfIndentSpace>
+                            <sortDependencies>groupId,artifactId</sortDependencies>
+                            <sortPlugins>groupId,artifactId</sortPlugins>
+                            <keepBlankLines>true</keepBlankLines>
+                            <expandEmptyElements>false</expandEmptyElements>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <artifactId>maven-compiler-plugin</artifactId>
                         <configuration>
-                            <source>1.8</source>
-                            <target>1.8</target>
+                            <source>${java.version}</source>
+                            <target>${java.version}</target>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>1.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-versions</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <message>You are running an older version of Maven. requires at least Maven 3.1</message>
+                                    <version>[3.1.0,)</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <message>You are running an older version of Java. requires at least JDK ${java.version}</message>
+                                    <version>[${java.version}.0,)</version>
+                                </requireJavaVersion>
+                            </rules>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
+
 </project>
