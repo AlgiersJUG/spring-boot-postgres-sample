@@ -75,7 +75,7 @@
                 <targetPath>db</targetPath>
                 <directory>src/main/resources/db</directory>
                 <includes>
-                    <include>application.properties</include>
+                    <include>postgres.properties</include>
                 </includes>
             </resource>
         </resources>

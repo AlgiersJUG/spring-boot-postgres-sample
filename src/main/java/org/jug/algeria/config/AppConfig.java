@@ -6,6 +6,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan
-@PropertySource(value = "classpath:/db/application.properties")
+@PropertySource(value = "classpath:/db/postgres.properties")
 public class AppConfig {
 }
