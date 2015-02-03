@@ -1,15 +1,26 @@
 package org.jug.algeria.domain;
 
-public class User {
+import javax.persistence.*;
 
+@Entity
+public class AppUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "username", nullable = false)
     private String username;
 
-    public User(String username) {
+    public AppUser() {
+    }
+
+    public AppUser(String username) {
         this.username = username;
     }
 
-    public User(long id, String username) {
+    public AppUser(long id, String username) {
         this.id = id;
         this.username = username;
     }
