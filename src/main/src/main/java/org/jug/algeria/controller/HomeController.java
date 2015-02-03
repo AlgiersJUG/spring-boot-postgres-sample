@@ -1,6 +1,7 @@
 package org.jug.algeria.controller;
 
 import org.jug.algeria.domain.User;
+import org.jug.algeria.repository.MockUserRepository;
 import org.jug.algeria.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class HomeController {
     public static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Inject
-    private UserRepository userRepository;
+    private MockUserRepository userRepository;
 
     @RequestMapping(value = "/user/{username}", method = RequestMethod.POST)
     public User createUser(@PathVariable String username) {
