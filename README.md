@@ -43,8 +43,9 @@ to add a user make a POST like this example : ```http://localhost:9095/user/Yazi
 to list all application users : ```http://localhost:9095/user```
 
 ### Add a user
-```curl -X POST "http://localhost:9095/user/Abderrazak BOUADMA"```
+```curl -X POST "http://localhost:9095/user/Abderrazak%20BOUADMA"```
 running the above POST request will result to an 200 Ok HTTP response and JSON Content-Type of Application/json of the new created object.
+the url must be URL_ENCODED before making the request (notice the %20 which encodes the white space character).
 
 ### List All Users
 ```curl "http://localhost:9095/user"```
