@@ -50,7 +50,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -70,15 +69,6 @@
 
     <!-- Main Build -->
     <build>
-        <resources>
-            <resource>
-                <targetPath>db</targetPath>
-                <directory>src/main/resources/db</directory>
-                <includes>
-                    <include>postgres.properties</include>
-                </includes>
-            </resource>
-        </resources>
         <finalName>blood-${project.version}</finalName>
         <plugins>
             <plugin>
@@ -91,11 +81,20 @@
     <!-- Profiles -->
     <profiles>
         <profile>
-            <id>default8</id>
+            <id>dev8</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
+                <resources>
+                    <resource>
+                        <targetPath>${project.build.sourceDirectory}</targetPath>
+                        <directory>src/main/resources/config/dev</directory>
+                        <includes>
+                            <include>application.properties</include>
+                        </includes>
+                    </resource>
+                </resources>
                 <plugins>
                     <plugin>
                         <groupId>com.google.code.sortpom</groupId>
