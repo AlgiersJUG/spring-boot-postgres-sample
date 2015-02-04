@@ -1,4 +1,4 @@
-package org.jug.algeria.config;
+package org.jug.algeria.server;
 
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;

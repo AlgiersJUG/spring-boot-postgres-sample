@@ -31,16 +31,14 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.easytesting</groupId>
             <artifactId>fest-assert</artifactId>
             <version>1.4</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,7 +86,7 @@
             <build>
                 <resources>
                     <resource>
-                        <targetPath>${project.build.sourceDirectory}</targetPath>
+                        <targetPath>${project.build.outputDirectory}</targetPath>
                         <directory>src/main/resources/config/dev</directory>
                         <includes>
                             <include>application.properties</include>
