@@ -1,3 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 pom.xml.bak
 *.script
+blood.properties
+blood.log
+
