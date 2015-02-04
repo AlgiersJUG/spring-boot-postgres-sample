@@ -24,10 +24,16 @@ to add a user make a POST like this example : ```http://localhost:9095/user/Yazi
 
 to list all application users : ```http://localhost:9095/user```
 
-## Load Sample Rows
-TODO Run this script to load some useful data
+## Load Sample Data
+schema and data are initialized using ```schema-${platform}.sql``` and ```data-${platform}.sql```
 
-## Run & Test
+## Invoke Application
 
-```curl http://localhost:9095/user```
-running the above line will result to an 200 Ok HTTP response and JSON Content-Type of X Objects.
+### Add a user
+```curl -X POST "http://localhost:9095/user/Abderrazak BOUADMA"```
+running the above POST request will result to an 200 Ok HTTP response and JSON Content-Type of Application/json of the new created object.
+
+### List All Users
+```curl "http://localhost:9095/user"```
+running the above GET request will result to an 200 Ok HTTP response and JSON Content-Type of Application/json and a list (maybe empty) of all users in DB
+
