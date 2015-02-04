@@ -1,155 +1,184 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>spring-boot-starter-parent</artifactId>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>1.2.1.RELEASE</version>
+  </parent>
+
+  <groupId>org.jug.algeria</groupId>
+  <artifactId>doctor-blood</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>doctor-blood Maven Webapp</name>
+
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <java.version>1.7</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.easytesting</groupId>
+      <artifactId>fest-assert</artifactId>
+      <version>1.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-rest</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.8.8</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.1-901-1.jdbc4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>2.3.2</version>
+    </dependency>
+  </dependencies>
+
+  <!-- Main Build -->
+  <build>
+    <finalName>blood-${project.version}</finalName>
+    <plugins>
+      <plugin>
         <groupId>org.springframework.boot</groupId>
-        <version>1.2.1.RELEASE</version>
-    </parent>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 
-    <groupId>org.jug.algeria</groupId>
-    <artifactId>doctor-blood</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>doctor-blood Maven Webapp</name>
+  <!-- Profiles -->
+  <profiles>
+    <!-- Useful to run integration tests into an embedded HSQLDB instance -->
+    <profile>
+      <id>devTest8</id>
+      <activation>
+        <property>
+          <name>hsqldbIntegrationTest</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <resources>
+          <resource>
+            <targetPath>${project.build.outputDirectory}</targetPath>
+            <directory>src/test/resources/config</directory>
+            <includes>
+              <include>application.properties</include>
+            </includes>
+          </resource>
+        </resources>
+      </build>
+    </profile>
 
-    <url>http://maven.apache.org</url>
-
-    <properties>
-        <java.version>1.7</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.easytesting</groupId>
-            <artifactId>fest-assert</artifactId>
-            <version>1.4</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.8.8</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.1-901-1.jdbc4</version>
-        </dependency>
-    </dependencies>
-
-    <!-- Main Build -->
-    <build>
-        <finalName>blood-${project.version}</finalName>
+    <!-- Useful to run application locally -->
+    <profile>
+      <id>dev8</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <resources>
+          <resource>
+            <targetPath>${project.build.outputDirectory}</targetPath>
+            <directory>src/main/resources/config/dev</directory>
+            <includes>
+              <include>application.properties</include>
+            </includes>
+          </resource>
+        </resources>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+          <plugin>
+            <groupId>com.google.code.sortpom</groupId>
+            <artifactId>maven-sortpom-plugin</artifactId>
+            <version>2.3.0</version>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sort</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <sortProperties>true</sortProperties>
+              <nrOfIndentSpace>4</nrOfIndentSpace>
+              <sortDependencies>groupId,artifactId</sortDependencies>
+              <sortPlugins>groupId,artifactId</sortPlugins>
+              <keepBlankLines>true</keepBlankLines>
+              <expandEmptyElements>false</expandEmptyElements>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <source>${java.version}</source>
+              <target>${java.version}</target>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>1.3.1</version>
+            <executions>
+              <execution>
+                <id>enforce-versions</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <message>You are running an older version of Maven. requires at least Maven 3.1</message>
+                  <version>[3.1.0,)</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <message>You are running an older version of Java. requires at least JDK ${java.version}</message>
+                  <version>[${java.version}.0,)</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </plugin>
         </plugins>
-    </build>
-
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <id>dev8</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <resources>
-                    <resource>
-                        <targetPath>${project.build.outputDirectory}</targetPath>
-                        <directory>src/main/resources/config/dev</directory>
-                        <includes>
-                            <include>application.properties</include>
-                        </includes>
-                    </resource>
-                </resources>
-                <plugins>
-                    <plugin>
-                        <groupId>com.google.code.sortpom</groupId>
-                        <artifactId>maven-sortpom-plugin</artifactId>
-                        <version>2.3.0</version>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sort</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <sortProperties>true</sortProperties>
-                            <nrOfIndentSpace>4</nrOfIndentSpace>
-                            <sortDependencies>groupId,artifactId</sortDependencies>
-                            <sortPlugins>groupId,artifactId</sortPlugins>
-                            <keepBlankLines>true</keepBlankLines>
-                            <expandEmptyElements>false</expandEmptyElements>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <source>${java.version}</source>
-                            <target>${java.version}</target>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>1.3.1</version>
-                        <executions>
-                            <execution>
-                                <id>enforce-versions</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <message>You are running an older version of Maven. requires at least Maven 3.1</message>
-                                    <version>[3.1.0,)</version>
-                                </requireMavenVersion>
-                                <requireJavaVersion>
-                                    <message>You are running an older version of Java. requires at least JDK ${java.version}</message>
-                                    <version>[${java.version}.0,)</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
