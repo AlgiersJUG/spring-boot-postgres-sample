@@ -7,7 +7,7 @@ Postgresql instance
 
 ## Postgres Instance Configuration
 In order to use your instance please update the [ Database Configuration Section ] section in ```src/main/resources/dev/application.properties```
-```
+```properties
 #
 # [ Database Configuration Section ]
 #
@@ -15,7 +15,7 @@ spring.jpa.database=POSTGRESQL
 spring.datasource.platform=postgres
 spring.jpa.show-sql=true
 spring.jpa.hibernate.ddl-auto=create-drop
-spring.database.driverClassName=org.postgresql.Driver
+#spring.database.driverClassName=org.postgresql.Driver
 spring.datasource.url=jdbc:postgresql://localhost:5432/blood
 spring.datasource.username=postgres
 spring.datasource.password=postgres
