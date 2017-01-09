@@ -5,6 +5,7 @@ import org.jug.algeria.repository.UserRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -20,6 +21,11 @@ public class HomeController {
   @Inject
   public HomeController(UserRepository userRepository) {
     this.userRepository = userRepository;
+  }
+
+  @GetMapping
+  public ModelAndView home() {
+    return new ModelAndView("index");
   }
 
   @GetMapping(value = "/hello")

@@ -7,11 +7,6 @@ spring:
     url: jdbc:h2:mem:USERS;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
     username: sa
     password:
-    platform: POSTGRESQL
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
 server:
   port: 9095
 
