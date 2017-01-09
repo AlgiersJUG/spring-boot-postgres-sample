@@ -1,12 +1,13 @@
 # Welcome to spring-boot-postgres Sample project
 
-## Pre requisities
+## Pre requisites
 Java 8
-Maven 3.1.x
-Postgresql instance
+Maven 3.3.x
+PostGreSql running instance (H2 for dev profile)
 
 ## Postgres Instance Configuration
 In order to use your instance please update the [ Database Configuration Section ] section in ```src/main/resources/application.yml```
+
 ```yaml
 #
 # [ Database Configuration Section ]
@@ -30,10 +31,10 @@ server:
 ```
 
 ## Run Application Locally
-```mvn spring-boot:run```
+```mvn -Dspring.profiles.active={dev-prod} spring-boot:run```
 
 ## Run Integration Tests
-```mvn test -DhsqldbIntegrationTest=true```
+```mvn test```
 
 ## Load Sample Data
 schema and data are initialized using ```schema-${platform}.sql``` and ```data-${platform}.sql```
@@ -41,10 +42,10 @@ schema and data are initialized using ```schema-${platform}.sql``` and ```data-$
 ## Invoke Application
 
 ### through browser
-to make POST requests from your browser use tools like : https://chrome.google.com/webstore/detail/rest-console/cokgbflfommojglbmbpenpphppikmonn
+to make POST requests from your browser use tools like POSTMAN : https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop
 
 
-to add a user make a POST like this example : ```http://localhost:9095/user/Yazid Cherfi```
+to add a user make a POST like this example : ```http://localhost:9095/user/Tarik Ibn Ziad```
 to list all application users : ```http://localhost:9095/user```
 
 ### Add a user
