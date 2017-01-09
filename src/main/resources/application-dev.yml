@@ -4,13 +4,10 @@
 
 spring:
   datasource:
-    url: jdbc:h2:mem:USERS;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    url: jdbc:h2:mem:APP_USERS;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
     username: sa
     password:
 server:
   port: 9095
 
 
-#
-# [ Other Configuration Attributes ]
-#
