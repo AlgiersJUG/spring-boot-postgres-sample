@@ -1,7 +1,6 @@
 package org.jug.algeria.domain;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
-@NoArgsConstructor
 @RequiredArgsConstructor
 public class AppUser {
 
@@ -22,6 +20,5 @@ public class AppUser {
 
   @NotNull
   private String username;
-
 
 }

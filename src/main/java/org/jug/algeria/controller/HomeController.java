@@ -3,6 +3,7 @@ package org.jug.algeria.controller;
 import org.jug.algeria.domain.AppUser;
 import org.jug.algeria.repository.UserRepository;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -14,8 +15,7 @@ import java.util.function.Consumer;
 @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomeController {
 
-  final
-  UserRepository userRepository;
+  final UserRepository userRepository;
 
   @Inject
   public HomeController(UserRepository userRepository) {
@@ -23,21 +23,24 @@ public class HomeController {
   }
 
   @GetMapping(value = "/hello")
-  public String sayHello() {
-    return "Hello there !";
+  public ResponseEntity<String> sayHello() {
+    return ResponseEntity.ok().body("Hello there !");
   }
 
   @PostMapping(value = "/user/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public AppUser create(@PathVariable String username) {
-    return userRepository.save(new AppUser(username));
+  public ResponseEntity<AppUser> create(@PathVariable String username) {
+    AppUser appUser = new AppUser();
+    appUser.setUsername(username);
+    AppUser saved = userRepository.save(appUser);
+    return ResponseEntity.ok().body(saved);
   }
 
   @GetMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<AppUser> findAll() {
+  public ResponseEntity<List<AppUser>> findAll() {
     final List<AppUser> resultList = new ArrayList<>();
     final Iterable<AppUser> all = userRepository.findAll();
-    all.forEach(appUser -> resultList.add(appUser));
-    return resultList;
+    all.forEach(resultList::add);
+    return ResponseEntity.ok().body(resultList);
   }
 
 }
