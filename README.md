@@ -7,7 +7,7 @@ Postgresql instance
 
 ## Postgres Instance Configuration
 In order to use your instance please update the [ Database Configuration Section ] section in ```src/main/resources/application.yml```
-```
+```yaml
 #
 # [ Database Configuration Section ]
 #
